@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DiakontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="date_to" />
+    </Key>
+    <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="jd_from" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="date_to" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="workers_amount" Type="Int32" />
+    <Property Name="monthly_pay" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Jobs" Relationship="Self.FK__Departmen__jd_fr__5165187F" FromRole="Departments" ToRole="Jobs" />
+  </EntityType>
+  <EntityType Name="Jobs">
+    <Key>
+      <PropertyRef Name="jdate_from" />
+    </Key>
+    <Property Name="job_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="jdate_from" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fee" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Departments" Relationship="Self.FK__Departmen__jd_fr__5165187F" FromRole="Jobs" ToRole="Departments" />
+  </EntityType>
+  <Association Name="FK__Departmen__jd_fr__5165187F">
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+    <End Role="Departments" Type="Self.Departments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jobs">
+        <PropertyRef Name="jdate_from" />
+      </Principal>
+      <Dependent Role="Departments">
+        <PropertyRef Name="jd_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DiakontEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Departments" EntityType="Self.Departments" />
+    <EntitySet Name="Jobs" EntityType="Self.Jobs" />
+    <AssociationSet Name="FK__Departmen__jd_fr__5165187F" Association="Self.FK__Departmen__jd_fr__5165187F">
+      <End Role="Jobs" EntitySet="Jobs" />
+      <End Role="Departments" EntitySet="Departments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

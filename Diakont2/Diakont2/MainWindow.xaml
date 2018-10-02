@@ -1,0 +1,133 @@
+﻿<Window x:Class="Diakont2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diakont2"
+        mc:Ignorable="d"
+        Title="Diakont" Height="323" Width="781">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Должности">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.3*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" x:Name="jobsDataGrid" AutoGenerateColumns="False" local:DiakontViewModel.JobsDataGrid="{Binding ElementName=jobsDataGrid}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=job_name}" Header="Должность" Width="0.3*"/>
+                            <DataGridTextColumn Binding="{Binding Path=jdate_from}" Header="Дата с" Width="0.3*"/>
+                            <DataGridTextColumn Binding="{Binding Path=fee}" Header="Ставка" Width="0.3*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Должность:"/>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Ставка:"/>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Дата с:"/>
+
+                        <ComboBox Grid.Column="0" Grid.Row="1" x:Name="jobComboBox" ItemsSource="{Binding Job_names}" SelectedItem="{Binding Selected_job}" />
+                        <TextBox Grid.Column="1" Grid.Row="1" x:Name="jobTextBox" Text="{Binding Fee}"/>
+                        <DatePicker Grid.Column="2" Grid.Row="1" x:Name="jobDatePicker" SelectedDateFormat="Short" SelectedDate="{Binding Jdate_from}"/>
+                        <Button Grid.Column="3" Grid.Row="1" x:Name="addJobButton" Content="Добавить" Command="{Binding AddJob}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Отделы">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.3*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" x:Name="departmentsDataGrid" AutoGenerateColumns="False" local:DiakontViewModel.DepartmentsDataGrid="{Binding ElementName=departmentsDataGrid}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=department_name}" Header="Отдел" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=job_name}" Header="Должность" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=jd_from}" Header="Дата с" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=date_to}" Header="Дата по" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=workers_amount}" Header="Количество работников" Width="150"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Отдел"/>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Должность:"/>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Дата с:"/>
+                        <Label Grid.Column="3" Grid.Row="0" Content="Дата по:"/>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Количество работников:"/>
+
+                        <ComboBox Grid.Column="0" Grid.Row="1" x:Name="departmentComboBox" ItemsSource="{Binding Dep_names}" SelectedIndex="{Binding Selected_department_index}" SelectedItem="{Binding Selected_department}" IsSynchronizedWithCurrentItem="True"/>
+                        <ComboBox Grid.Column="1" Grid.Row="1" x:Name="jComboBox" ItemsSource="{Binding DJob_names}" SelectedIndex="{Binding DSelected_job_index}" SelectedItem="{Binding DSelected_job}" />
+                        <ComboBox Grid.Column="2" Grid.Row="1" x:Name="dComboBox" ItemsSource="{Binding String_dates}" SelectedItem="{Binding Selected_jdate}"/>
+                        <DatePicker Grid.Column="3" Grid.Row="1" x:Name="departmentDatePicker" SelectedDateFormat="Short" SelectedDate="{Binding Date_to}"/>
+                        <TextBox Grid.Column="4" Grid.Row="1" x:Name="departmentTextBox" Text="{Binding Workers_amount}"/>
+                        <Button Grid.Column="5" Grid.Row="1" x:Name="addDepartmentButton" Content="Добавить" Command="{Binding AddDepartment}"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Отчёт">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.3*"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" x:Name="reportsDataGrid" AutoGenerateColumns="False" local:DiakontViewModel.ReportsDataGrid="{Binding ElementName=reportsDataGrid}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=department_name}" Header="Отдел" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=jd_from}" Header="Дата с" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=date_to}" Header="Дата по" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding Path=monthly_pay}" Header="ФОТ" Width="150"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Отдел:"/>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Дата с:"/>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Дата по:"/>
+
+                        <ComboBox Grid.Column="0" Grid.Row="1" x:Name="rdComboBox" ItemsSource="{Binding Dep_names}" SelectedItem="{Binding RDSelected_dep}" SelectedIndex="{Binding RDSelected_dep_index}"/>
+                        <DatePicker Grid.Column="1" Grid.Row="1" x:Name="dateFromComboBox"  SelectedDateFormat="Short" SelectedDate="{Binding Rjd_from}"/>
+                        <DatePicker Grid.Column="2" Grid.Row="1" x:Name="dateToComboBox"  SelectedDateFormat="Short" SelectedDate="{Binding RDate_to}"/>
+                        <Button Grid.Column="3" Grid.Row="1" x:Name="showReportButton" Command="{Binding ShowReport}" Content="Показать"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

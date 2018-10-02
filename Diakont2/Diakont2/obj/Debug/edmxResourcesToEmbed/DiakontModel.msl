@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище DiakontModelContainer" CdmEntityContainer="DiakontEntities">
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="DiakontModel.Departments">
+        <MappingFragment StoreEntitySet="Departments">
+          <ScalarProperty Name="department_name" ColumnName="department_name" />
+          <ScalarProperty Name="jd_from" ColumnName="jd_from" />
+          <ScalarProperty Name="date_to" ColumnName="date_to" />
+          <ScalarProperty Name="workers_amount" ColumnName="workers_amount" />
+          <ScalarProperty Name="monthly_pay" ColumnName="monthly_pay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="DiakontModel.Jobs">
+        <MappingFragment StoreEntitySet="Jobs">
+          <ScalarProperty Name="job_name" ColumnName="job_name" />
+          <ScalarProperty Name="jdate_from" ColumnName="jdate_from" />
+          <ScalarProperty Name="fee" ColumnName="fee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
